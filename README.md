@@ -1,4 +1,85 @@
+# MyPortfolio Mobile
 
+Aplikasi mobile multiplatform berbasis Flutter untuk portofolio pribadi (PBP Gasal 2026/2027).
+
+**Identitas Pengembang:**
+- Nama: Rama Sanjaya
+- NPM: 2506604421
+- Kelas: PBP B
+
+---
+
+## Deskripsi Proyek
+
+`myportofolio_mobile` adalah aplikasi klien mobile untuk ekosistem portofolio pribadi `myportofolio`. Aplikasi ini menampilkan informasi profil pengembang serta menu navigasi aksi interaktif menggunakan desain Material 3.
+
+### Fitur Saat Ini
+- Halaman utama berbasis `StatelessWidget` yang terpisah dari `main.dart` (`lib/menu.dart`).
+- Kartu informasi profil (`InfoCard`) yang menampilkan NPM, Nama, dan Kelas secara responsif.
+- Kartu tombol aksi (`ItemCard`) dengan warna latar berbeda (`Colors.blue`, `Colors.green`, `Colors.red`) dan umpan balik `SnackBar` saat ditekan.
+
+---
+
+## Instruksi Setup & Menjalankan Proyek
+
+### Prasyarat
+- Flutter SDK (Channel stable)
+- Dart SDK (sudah terbundel dalam Flutter SDK)
+- Google Chrome atau Android Emulator / Perangkat Fisik
+
+### Langkah Instalasi
+1. Clone repositori ini:
+   ```bash
+   git clone https://github.com/ramasanjayadx/myportofolio_mobile.git
+   cd myportofolio_mobile
+   ```
+2. Unduh dependensi proyek:
+   ```bash
+   flutter pub get
+   ```
+3. Pastikan tidak ada isu analisis statis:
+   ```bash
+   flutter analyze
+   ```
+4. Jalankan aplikasi (disarankan via Chrome untuk pengujian cepat):
+   ```bash
+   flutter run -d chrome
+   ```
+
+---
+
+## Progres Mingguan
+
+- **Minggu 1 (Tutorial 08 - Basic Flutter):** Inisialisasi proyek `myportofolio_mobile`, pemisahan `lib/menu.dart` dari `lib/main.dart`, konfigurasi tema Material 3 (`Colors.indigo` & `Colors.amber`), serta implementasi `InfoCard` dan `ItemCard`.
+- **Minggu 2 (Tugas 7 - Basic Flutter):** Mengganti data identitas menjadi data pribadi, menambahkan atribut `color` pada model `ItemHomepage` untuk membedakan warna tiap tombol aksi, serta mendokumentasikan jawaban reflektif di `README.md`.
+
+---
+
+## AI Disclosure
+
+### Tools yang Digunakan
+- **Antigravity (Asisten AI berbasis Gemini):** Digunakan sebagai pendamping pengkodean di IDE untuk membaca panduan tugas dan menyusun kerangka dokumentasi.
+- **Gemini AI:** Digunakan sebagai alat bantu selama pengerjaan tugas.
+
+### Strategi Prompting
+- **Review Before Edit:** Meminta AI menjelaskan terlebih dahulu bagian mana saja yang harus diubah berdasarkan dokumen PDF tugas sebelum mengizinkannya menyunting berkas proyek.
+- **Minimal & Clean Code:** Menginstruksikan AI agar tetap mengikuti struktur kode tutorial dan mengurangi komentar yang tidak perlu.
+- **Iterative Refinement:** Meminta penyederhanaan format teks pada draf jawaban agar sesuai dengan preferensi penulisan di `README.md`.
+
+### Bagian Spesifik yang Dibantu
+- Penyesuaian `lib/menu.dart` untuk menambahkan properti `final Color color` pada `ItemHomepage` dan menghubungkannya ke `ItemCard`.
+- Penyusunan poin-poin awal jawaban pertanyaan reflektif Tugas 7.
+- Penyusunan panduan perintah Git (`git add`, `git commit`, `git push`).
+
+### Analisis Kritis Keterbatasan AI & Perbaikan Manual
+- **Konteks Data Pribadi:** AI tidak mengetahui identitas pribadi (NPM, kelas, dan preferensi penamaan) maupun konteks riwayat tugas web sebelumnya secara otomatis, sehingga data tersebut harus diisikan dan diverifikasi secara manual.
+- **Gaya Penulisan & Komentar:** Pada respons awal, AI cenderung menyertakan komentar kode yang terlalu panjang dan format markdown (bold/italic/backtick) yang terlalu ramai pada jawaban reflektif. Perbaikan dilakukan dengan mengarahkan ulang format agar lebih ringkas dan melakukan penyuntingan manual pada `README.md`.
+- **Eksekusi Git & Pengujian:** Seluruh proses `git commit` bertahap, `git push` ke GitHub, serta pengecekan tampilan langsung di peramban/emulator dijalankan dan diverifikasi secara manual oleh pengembang.
+
+### Ringkasan Log Prompting
+- 1. Tugas 7 : https://share.gemini.google/BYJeh9dH3nZj
+
+---
 ### Tugas 7
 
 1. **Apa yang dimaksud dengan *widget tree* pada Flutter dan bagaimana hubungan induk-anak (*parent-child*) bekerja antar-widget?**
