@@ -14,9 +14,11 @@ Aplikasi mobile multiplatform berbasis Flutter untuk portofolio pribadi (PBP Gas
 `myportofolio_mobile` adalah aplikasi klien mobile untuk ekosistem portofolio pribadi `myportofolio`. Aplikasi ini menampilkan informasi profil pengembang serta menu navigasi aksi interaktif menggunakan desain Material 3.
 
 ### Fitur Saat Ini
-- Halaman utama berbasis `StatelessWidget` yang terpisah dari `main.dart` (`lib/menu.dart`).
+- Halaman utama (`lib/screens/menu.dart`) dengan `Scaffold`, `AppBar`, dan `LeftDrawer`.
 - Kartu informasi profil (`InfoCard`) yang menampilkan NPM, Nama, dan Kelas secara responsif.
-- Kartu tombol aksi (`ItemCard`) dengan warna latar berbeda (`Colors.blue`, `Colors.green`, `Colors.red`) dan umpan balik `SnackBar` saat ditekan.
+- Kartu tombol aksi (`ItemCard` di `lib/widgets/project_card.dart`) dengan warna latar berbeda dan navigasi `Navigator.push()` ke halaman formulir.
+- Halaman formulir Tambah Proyek (`lib/screens/project_form.dart`) dan Tambah Pengalaman (`lib/screens/experience_form.dart`) dengan validasi input, `showDatePicker()`, serta dialog ringkasan data.
+- Menu navigasi samping (`LeftDrawer` di `lib/widgets/left_drawer.dart`) dengan opsi `Home`, `Add Project`, dan `Add Experience`.
 
 ---
 
@@ -52,6 +54,8 @@ Aplikasi mobile multiplatform berbasis Flutter untuk portofolio pribadi (PBP Gas
 
 - **Minggu 1 (Tutorial 08 - Basic Flutter):** Inisialisasi proyek `myportofolio_mobile`, pemisahan `lib/menu.dart` dari `lib/main.dart`, konfigurasi tema Material 3 (`Colors.indigo` & `Colors.amber`), serta implementasi `InfoCard` dan `ItemCard`.
 - **Minggu 2 (Tugas 7 - Basic Flutter):** Mengganti data identitas menjadi data pribadi, menambahkan atribut `color` pada model `ItemHomepage` untuk membedakan warna tiap tombol aksi, serta mendokumentasikan jawaban reflektif di `README.md`.
+- **Minggu 3 (Tutorial 09 - Navigation, Layouts, Forms, & Input Elements):** Migrasi impor ke `material_ui`, penambahan `LeftDrawer`, pembuatan halaman `ProjectFormPage` dengan validasi dan `AlertDialog`, navigasi `ItemCard`, serta refactoring direktori ke `lib/screens/` dan `lib/widgets/`.
+- **Minggu 4 (Tugas 8 - Navigation, Layouts, Forms, & Input Elements):** Pembuatan halaman `ExperienceFormPage` (`lib/screens/experience_form.dart`) dengan input teks, dropdown, `showDatePicker()`, validasi lengkap (kosong/spasi, panjang karakter, dan urutan tanggal), penambahan kartu aksi `"Tambah Pengalaman"` dan opsi drawer `"Add Experience"`, serta dokumentasi jawaban reflektif Tugas 8.
 
 ---
 
@@ -67,9 +71,10 @@ Aplikasi mobile multiplatform berbasis Flutter untuk portofolio pribadi (PBP Gas
 - **Iterative Refinement:** Meminta penyederhanaan format teks pada draf jawaban agar sesuai dengan preferensi penulisan di `README.md`.
 
 ### Bagian Spesifik yang Dibantu
-- Penyesuaian `lib/menu.dart` untuk menambahkan properti `final Color color` pada `ItemHomepage` dan menghubungkannya ke `ItemCard`.
-- Penyusunan poin-poin awal jawaban pertanyaan reflektif Tugas 7.
-- Penyusunan panduan perintah Git (`git add`, `git commit`, `git push`).
+- Penyesuaian `lib/menu.dart` untuk menambahkan properti `final Color color` pada `ItemHomepage` dan menghubungkannya ke `ItemCard` (Tugas 7).
+- Pembuatan halaman `lib/screens/experience_form.dart` beserta validasi panjang teks, spasi kosong, dan urutan tanggal dengan `showDatePicker()` (Tugas 8).
+- Penambahan navigasi kartu aksi di `lib/screens/menu.dart` & `lib/widgets/project_card.dart` serta opsi `"Add Experience"` di `lib/widgets/left_drawer.dart` (Tugas 8).
+- Penyusunan poin-poin awal jawaban pertanyaan reflektif dan panduan perintah Git bertahap.
 
 ### Analisis Kritis Keterbatasan AI & Perbaikan Manual
 - **Konteks Data Pribadi:** AI tidak mengetahui identitas pribadi (NPM, kelas, dan preferensi penamaan) maupun konteks riwayat tugas web sebelumnya secara otomatis, sehingga data tersebut harus diisikan dan diverifikasi secara manual.
@@ -78,6 +83,7 @@ Aplikasi mobile multiplatform berbasis Flutter untuk portofolio pribadi (PBP Gas
 
 ### Ringkasan Log Prompting
 - 1. Tugas 7 : https://share.gemini.google/BYJeh9dH3nZj
+- 2. Tugas 8 : https://share.gemini.google/oiwTNpNZVC28
 
 ---
 ### Tugas 7
@@ -108,15 +114,34 @@ Aplikasi mobile multiplatform berbasis Flutter untuk portofolio pribadi (PBP Gas
     - SnackBar: Menampilkan pesan notifikasi sementara di bagian bawah layar melalui ScaffoldMessenger.
 
 3. **Apa fungsi dari widget `MaterialApp`? Jelaskan mengapa widget ini umumnya digunakan sebagai *root widget* pada aplikasi Flutter!**
-    MaterialApp berfungsi sebagai pembungkus tingkat atas yang menyediakan konfigurasi dasar aplikasi bergaya Material Design, seperti pengaturan tema global (ThemeData dan ColorScheme), navigasi antarhalaman (Navigator), lokalisasi, serta akses ke ScaffoldMessenger dan MediaQuery. Widget ini digunakan sebagai root widget karena hampir seluruh widget UI bawaan Flutter (seperti Scaffold, AppBar, Card, dan SnackBar) bergantung pada tema dan konteks Material yang disediakan oleh MaterialApp.
+   MaterialApp berfungsi sebagai pembungkus tingkat atas yang menyediakan konfigurasi dasar aplikasi bergaya Material Design, seperti pengaturan tema global (ThemeData dan ColorScheme), navigasi antarhalaman (Navigator), lokalisasi, serta akses ke ScaffoldMessenger dan MediaQuery. Widget ini digunakan sebagai root widget karena hampir seluruh widget UI bawaan Flutter (seperti Scaffold, AppBar, Card, dan SnackBar) bergantung pada tema dan konteks Material yang disediakan oleh MaterialApp.
 
 4. **Jelaskan perbedaan antara `StatelessWidget` dan `StatefulWidget`! Kapan kita sebaiknya memilih `StatelessWidget` dan kapan harus menggunakan `StatefulWidget`?**
-    StatelessWidget adalah widget statis yang tidak memiliki state internal yang berubah setelah dibangun; tampilannya hanya bergantung pada data awal dari konstruktor. Sebaliknya, StatefulWidget memiliki objek State yang dapat menyimpan data dinamis dan memperbarui tampilan melalui setState() saat aplikasi berjalan.
-    StatelessWidget dipilih untuk antarmuka yang tetap dan tidak berubah secara lokal (seperti MyHomePage, InfoCard, dan ItemCard), sedangkan StatefulWidget dipilih jika UI perlu berubah secara dinamis akibat interaksi pengguna atau data asinkron (seperti input form, counter, atau data dari API).
+   StatelessWidget adalah widget statis yang tidak memiliki state internal yang berubah setelah dibangun; tampilannya hanya bergantung pada data awal dari konstruktor. Sebaliknya, StatefulWidget memiliki objek State yang dapat menyimpan data dinamis dan memperbarui tampilan melalui setState() saat aplikasi berjalan.
+   StatelessWidget dipilih untuk antarmuka yang tetap dan tidak berubah secara lokal (seperti MyHomePage, InfoCard, dan ItemCard), sedangkan StatefulWidget dipilih jika UI perlu berubah secara dinamis akibat interaksi pengguna atau data asinkron (seperti input form, counter, atau data dari API).
 
 5. **Apa itu `BuildContext` dan mengapa penting di Flutter? Bagaimana penggunaannya di dalam metode `build`?**
-    BuildContext adalah objek alamat yang bisa menunjukkan lokasi spesifik suatu widget di dalam widget tree. BuildContext penting karena memungkinkan sebuah widget mengakses informasi dari widget leluhur (ancestor) di atasnya. Di dalam metode build pada proyek ini, context digunakan pada pemanggilan Theme.of(context) untuk mengambil warna tema, MediaQuery.of(context) untuk membaca lebar layar, dan ScaffoldMessenger.of(context) untuk menampilkan SnackBar.
+   BuildContext adalah objek alamat yang bisa menunjukkan lokasi spesifik suatu widget di dalam widget tree. BuildContext penting karena memungkinkan sebuah widget mengakses informasi dari widget leluhur (ancestor) di atasnya. Di dalam metode build pada proyek ini, context digunakan pada pemanggilan Theme.of(context) untuk mengambil warna tema, MediaQuery.of(context) untuk membaca lebar layar, dan ScaffoldMessenger.of(context) untuk menampilkan SnackBar.
 
 6. **Jelaskan konsep *hot reload* di Flutter dan apa perbedaannya dengan *hot restart*! Kapan kita tidak bisa hanya mengandalkan *hot reload* dan harus melakukan *hot restart* atau *full restart*?**
-    Hot reload memasukkan perubahan kode Dart langsung ke Dart VM yang sedang berjalan dan membangun ulang widget tree dengan cepat tanpa mereset state aplikasi. Sedangkan hot restart mengompilasi ulang kode Dart dan memulai ulang aplikasi dari fungsi main(), sehingga seluruh state direset ke awal.
-    Hot reload tidak bisa diandalkan dan harus diganti dengan hot restart saat mengubah variabel global, properti static, fungsi main(), mengubah StatelessWidget menjadi StatefulWidget (atau sebaliknya), serta mengubah initState(). Sementara itu, full restart diperlukan saat menambah package/aset baru di pubspec.yaml atau mengubah kode native Android/iOS.
+   Hot reload memasukkan perubahan kode Dart langsung ke Dart VM yang sedang berjalan dan membangun ulang widget tree dengan cepat tanpa mereset state aplikasi. Sedangkan hot restart mengompilasi ulang kode Dart dan memulai ulang aplikasi dari fungsi main(), sehingga seluruh state direset ke awal.
+   Hot reload tidak bisa diandalkan dan harus diganti dengan hot restart saat mengubah variabel global, properti static, fungsi main(), mengubah StatelessWidget menjadi StatefulWidget (atau sebaliknya), serta mengubah initState(). Sementara itu, full restart diperlukan saat menambah package/aset baru di pubspec.yaml atau mengubah kode native Android/iOS.
+
+---
+### Tugas 8
+
+1. **Jelaskan perbedaan antara `Navigator.push()`, `Navigator.pushReplacement()`, dan `Navigator.pop()`. Metode apa yang digunakan untuk membuka formulir dari kartu aksi? Jelaskan juga bagaimana opsi `Home` di drawer membawa pengguna kembali ke halaman utama.**
+* Navigator.push() menambahkan route baru di atas stack navigasi sehingga halaman sebelumnya tetap tersimpan di bawahnya dan pengguna dapat kembali dengan tombol Back. Sedangkan Navigator.pushReplacement() menggantikan route yang sedang aktif di puncak stack dengan route baru tanpa menumpuk halaman lama. Navigator.pop() menghapus route paling atas dari stack untuk kembali ke route sebelumnya.
+* Untuk membuka formulir dari kartu aksi, digunakan Navigator.push() agar pengguna bisa kembali lagi ke halaman utama dengan tombol Back. Sementara itu, opsi Home di LeftDrawer menggunakan Navigator.pushReplacement() ke MyHomePage() untuk menggantikan halaman formulir yang sedang dibuka dengan halaman utama.
+
+2. **Bagaimana susunan `Scaffold`, `AppBar`, dan `Drawer` membantu menjaga struktur halaman tetap konsisten? Berikan satu contoh penggunaan warna tema portofolio di lebih dari satu halaman.**
+* Scaffold menyediakan template yang menempatkan AppBar di bagian atas, drawer di sisi kiri, dan konten utama pada body sehingga setiap halaman memiliki posisi bilah judul dan akses menu navigasi yang seragam dengan menggunakan komponen LeftDrawer.
+* Contoh penggunaan warna tema portofolio di lebih dari satu halaman adalah `Theme.of(context).colorScheme.primary` (yang berasal dari `seedColor: Colors.indigo` pada `ThemeData` di `lib/main.dart`) yang dipakai pada `backgroundColor` milik `AppBar` di halaman utama (`lib/screens/menu.dart`) maupun pada `AppBar` dan `ElevatedButton` di halaman formulir pengalaman (`lib/screens/experience_form.dart`).
+
+3. **Mengapa tata letak tersebut dipilih untuk formulir? Jelaskan peran widget pengatur jarak dan widget penggulir ketika ruang layar terbatas.**
+* Tata letak Form yang membungkus SingleChildScrollView dan Column dipilih agar seluruh kolom input tersusun rapi secara vertikal dari atas ke bawah sekaligus dapat digulir saat melebihi tinggi layar.
+* Widget pengatur jarak memberi ruang napas di sekeliling setiap input dan tombol agar elemen tidak saling menempel dan nyaman disentuh. Sementara itu, widget penggulir mencegah error overflow saat ruang layar sempit (seperti layar selebar ponsel) atau ketika papan ketik muncul menutupi sebagian layar, sehingga seluruh input dan tombol simpan tetap dapat dijangkau dengan menggulir layar.
+
+4. **Apa peran `GlobalKey<FormState>`, `validator`, dan `validate()` saat tombol `Simpan` ditekan? Berikan satu contoh nilai yang ditolak oleh validasi dan jelaskan mengapa memilih jenis input atau papan ketik saja belum cukup.**
+* GlobalKey<FormState> menjadi penghubung untuk mengakses dan mengendalikan state Form dari luar widget Form. Ketika tombol Simpan ditekan, `_formKey.currentState!.validate()` memicu fungsi `validator` pada setiap field di dalam form. Jika ada `validator` yang mengembalikan string pesan error, validasi gagal dan pesan kesalahan langsung ditampilkan di bawah kolom terkait.
+* Contoh nilai yang ditolak oleh validasi adalah input yang hanya berisi spasi atau pemilihan tanggal selesai yang lebih awal daripada mulai. Memilih jenis input atau tipe papan ketik saja belum cukup karena hanya membantu kemudahan pengetikan atau membatasi karakter awal, tetapi tidak dapat menjamin aturan bisnis seperti isian wajib tidak kosong, batas panjang teks, maupun hubungan logis antar-field seperti urutan tanggal.
