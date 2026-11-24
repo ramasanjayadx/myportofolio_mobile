@@ -1,30 +1,52 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:myportofolio_mobile/main.dart';
+import 'package:myportofolio_mobile/models/project.dart';
+import 'package:myportofolio_mobile/screens/login_screen.dart';
+import 'package:myportofolio_mobile/services/api_client.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  test('Project serializes to and from JSON', () {
+    const project = Project(
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      title: 'MyPortfolio',
+      description: 'Personal portfolio app',
+      techStack: 'Flutter, Django',
+      projectUrl: 'https://example.com',
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    final json = project.toJson();
+    expect(json.containsKey('id'), isFalse);
+    expect(json['tech_stack'], 'Flutter, Django');
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    final decoded = Project.fromJson({
+      'id': '123e4567-e89b-12d3-a456-426614174000',
+      'title': 'MyPortfolio',
+      'description': 'Personal portfolio app',
+      'tech_stack': 'Flutter, Django',
+      'project_url': 'https://example.com',
+    });
+    expect(decoded.projectImageUrl, '');
+    expect(decoded.title, 'MyPortfolio');
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('LoginScreen renders username and password fields', (
+    WidgetTester tester,
+  ) async {
+    final apiClient = ApiClient();
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          Provider.value(value: apiClient),
+          ChangeNotifierProvider(create: (_) => AuthState(apiClient)),
+        ],
+        child: const MaterialApp(home: LoginScreen()),
+      ),
+    );
+
+    expect(find.text('Username'), findsWidgets);
+    expect(find.text('Password'), findsWidgets);
+    expect(find.widgetWithText(ElevatedButton, 'Login'), findsOneWidget);
   });
 }
