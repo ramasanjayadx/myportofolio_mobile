@@ -85,11 +85,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Add Experience Form',
-          ),
-        ),
+        title: const Center(child: Text('Add Experience Form')),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
@@ -173,10 +169,10 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   ),
                   initialValue: _experienceType,
                   items: _experienceTypes
-                      .map((type) => DropdownMenuItem(
-                            value: type,
-                            child: Text(type),
-                          ))
+                      .map(
+                        (type) =>
+                            DropdownMenuItem(value: type, child: Text(type)),
+                      )
                       .toList(),
                   onChanged: (String? newValue) {
                     if (newValue != null) {
