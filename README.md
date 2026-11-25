@@ -145,3 +145,6 @@ Aplikasi mobile multiplatform berbasis Flutter untuk portofolio pribadi (PBP Gas
 4. **Apa peran `GlobalKey<FormState>`, `validator`, dan `validate()` saat tombol `Simpan` ditekan? Berikan satu contoh nilai yang ditolak oleh validasi dan jelaskan mengapa memilih jenis input atau papan ketik saja belum cukup.**
 * GlobalKey<FormState> menjadi penghubung untuk mengakses dan mengendalikan state Form dari luar widget Form. Ketika tombol Simpan ditekan, `_formKey.currentState!.validate()` memicu fungsi `validator` pada setiap field di dalam form. Jika ada `validator` yang mengembalikan string pesan error, validasi gagal dan pesan kesalahan langsung ditampilkan di bawah kolom terkait.
 * Contoh nilai yang ditolak oleh validasi adalah input yang hanya berisi spasi atau pemilihan tanggal selesai yang lebih awal daripada mulai. Memilih jenis input atau tipe papan ketik saja belum cukup karena hanya membantu kemudahan pengetikan atau membatasi karakter awal, tetapi tidak dapat menjamin aturan bisnis seperti isian wajib tidak kosong, batas panjang teks, maupun hubungan logis antar-field seperti urutan tanggal.
+
+---
+### Tugas 8
